@@ -38,12 +38,48 @@
             // Validate the initial balance
             Balance = initialBalance;
         }
+
+        /// <summary>
+        /// Deposits money into the account.
+        /// </summary>
+        /// <param name="amount"></param>
+        public void Deposit(double amount)
+        {
+            if(amount > 0)
+            {
+                _balance += amount;
+                Console.WriteLine($"Deposited: {amount:C}. New Balance: {_balance:C}");
+            }
+        }
+
+        public void Withdraw(double amount)
+        {
+            if (amount > 0 && _balance >= amount)
+            {
+                _balance -= amount;
+                Console.WriteLine($"Withdraw: {amount:C}. New Balance: {_balance:C}");
+            }
+            else
+            {
+                Console.WriteLine("Insufficient funds.");
+            }
+        }
     }
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // Create a new BankAccount object
+            BankAccount myAccount = new BankAccount("12345678", 500.00);
+
+            // Display the account number and initial balance
+            Console.WriteLine($"Account Number: {myAccount.AccountNumber:C}");
+            Console.WriteLine($"Initial Balance: {myAccount.Balance:C}");
+
+            // Deposit and withdraw money
+            myAccount.Deposit(150.00);
+            myAccount.Withdraw(50.00);
+            myAccount.Withdraw(700.00); // Should print an insufficient funds message/
         }
     }
 }
